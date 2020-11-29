@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: timber
+spec:
+  rules:
+  - host: timber.k3z.eu
+    http:
+      paths:
+      - backend:
+          serviceName: myapp
+          servicePort: 80
