@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: timber-backend
+  name: myapp
   labels:
-    app: timber-backend
+    app: myapp
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: timber-backend
+      app: myapp
   template:
     metadata:
       annotations:
         ready: "true"
         url: "https://github.com/tektoncd/pipeline/tree/master/cmd/entrypoint"
       labels:
-        app: timber-backend
+        app: myapp
     spec:
       volumes:
       - name: podinfo
@@ -28,7 +28,7 @@ spec:
               fieldPath: metadata.annotations['ready']
             path: ready
       containers:
-      - name: timber-backend
+      - name: myapp
         image: lalyos/lunch-wto
         readinessProbe:
             initialDelaySeconds: 2
