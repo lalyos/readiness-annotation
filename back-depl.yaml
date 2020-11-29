@@ -6,7 +6,7 @@ metadata:
   labels:
     app: timber-backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: timber-backend
@@ -29,7 +29,16 @@ spec:
             path: ready
       containers:
       - name: timber-backend
-        image: eu.gcr.io/container-solutions-workshops/timber/backend:v1.0
+        image: lalyos/lunch-wto
+        readinessProbe:
+            initialDelaySeconds: 2
+            periodSeconds: 3
+            failureThreshold: 1
+            exec:
+              command:
+                - "sh"
+                - "-c"
+                - "grep true /etc/podinfo/ready"
         volumeMounts:
           - name: podinfo
             mountPath: /etc/podinfo
