@@ -35,10 +35,7 @@ spec:
             periodSeconds: 3
             failureThreshold: 1
             exec:
-              command:
-                - "sh"
-                - "-c"
-                - "grep true /etc/podinfo/ready"
+              command: ["grep", "true", "/etc/podinfo/ready"]
         volumeMounts:
           - name: podinfo
             mountPath: /etc/podinfo
