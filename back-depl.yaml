@@ -12,12 +12,27 @@ spec:
       app: timber-backend
   template:
     metadata:
+      annotations:
+        ready: "true"
+        url: "https://github.com/tektoncd/pipeline/tree/master/cmd/entrypoint"
       labels:
         app: timber-backend
     spec:
+      volumes:
+      - name: podinfo
+        downwardAPI:
+          defaultMode: 420
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.annotations
+            path: annotations
       containers:
       - name: timber-backend
         image: eu.gcr.io/container-solutions-workshops/timber/backend:v1.0
+        volumeMounts:
+          - name: podinfo
+            mountPath: /etc/podinfo
         ports:
         - containerPort: 8080
         resources: {}
